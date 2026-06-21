@@ -1,0 +1,8 @@
+http:
+  port: "8081"
+  
+db:
+  host: "localhost"
+  port: "5432"
+  user: "mule"
+  password: "Mule1234"
