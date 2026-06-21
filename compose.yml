@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: mule-gon-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: gon-db
+      POSTGRES_USER: mule
+      POSTGRES_PASSWORD: Mule1234
+      TZ: Europe/Rome
+    ports:
+      - "5432:5432"
+    volumes:
+      - products_pgdata:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mule -d gon-db"]
+
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+volumes:
+  products_pgdata:
